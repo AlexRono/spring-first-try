@@ -11,8 +11,10 @@
     <name>spring-first-try</name>
 
     <properties>
-        <springframework.version>5.0.2.RELEASE</springframework.version>
-        <springsecurity.version>5.0.0.RELEASE</springsecurity.version>
+        <springframework.version>5.2.8.RELEASE</springframework.version>
+        <springsecurity.version>5.3.4.RELEASE</springsecurity.version>
+        <project.build.finalName>spring-first-try</project.build.finalName>
+        <project.fullPath>C:\apache-tomcat-9.0.37\webapps\spring-first-try</project.fullPath>
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -80,16 +82,44 @@
             <version>5.4.17.Final</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>5.2.8.RELEASE</version>
+        </dependency>
+
     </dependencies>
 
     <build>
-        <finalName>spring-first-try</finalName>
+        <finalName>${project.build.finalName}</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>3.2.0</version>
+                    <executions>
+                        <execution>
+                            <id>deploy</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>
+                                    war
+                                </goal>
+                            </goals>
+                            <configuration>
+                                <warName>
+                                    ${project.build.finalName}
+                                </warName>
+                                <webappDirectory>
+                                    ${project.fullPath}
+                                </webappDirectory>
+                                <classifier>
+                                    full
+                                </classifier>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
